@@ -93,7 +93,7 @@
 	&y_i^+\geq 0 , \quad \forall k \in K _ { i } , i \in I.
 	\end{align*}
 	
-	\section{Preliminay Tests}
+	\section{Preliminary Tests}
 	Github page : \texttt{https://github.com/mody3062/CG}
 	\paragraph{Testing algorithms}
 	\begin{itemize}
@@ -106,6 +106,23 @@
 	\paragraph{Algorithmic parameters}
 	
 	RMP was constructed with a single decision variable which is dummy. The coefficient of the dummy variable on the objective function was set to a sufficiently large value, which is the sum of listed values such that \verb|np.sum(c,axis=1)|. For stabilized column generation algorithm, I fixed the parameter $\epsilon$ to 0.0001. ($\because$ I don't understand the criteria for changing the parameter value($\epsilon$). )
+	
+	
+	\section{New Column Generation Approach}
+	Consider $J = J_1 \cup J_2$ and the dual solutions $\pi_j$ for all $j \in J_2$ are fixed to $\Pi' = \bigcup_{j \in J_2} \pi'_j$ ($\pi'$ is a feasible solution). Then, the reformulation of the dual problem and its primal are as follows : 
+	
+	\begin{align*}
+		\text{(D)}~   \max& ~ \sum _ { j \in J } \pi _ { j } - \sum _ { i \in I } \phi _ { i }, \\
+	\text{s.t. } & ~ \sum _ { j \in J } \delta _ { k } ^ { j } \pi _ { j } - \phi _ { i } \leq c _ { k } ^ { i } , \quad \forall k \in K _ { i } , i \in I, \\
+	& \pi_j \leq \pi'_j \quad \forall j \in J_2 \\
+	&\pi _ { j } \geq 0 , \quad \forall j \in J ,\\
+	&\phi _ { i } \geq 0 , \quad \forall i \in I. \\[5mm]
+	\text{(P)}~ \min& ~ \sum _ { i \in I } \sum _ { k \in K } c _ { k } ^ { i } x _ { k } ^ { i } + \sum_{ j \in J_2 } \pi'_j y_j,\\
+	\text { s.t. }&  ~ \sum _ { i \in I } \sum _ { k \in K _ { i } } \delta _ { k } ^ { j } x _ { k } ^ { i } \geq 1 , \quad j \in J_1, \\
+	& \sum _ { i \in I } \sum _ { k \in K _ { i } } \delta _ { k } ^ { j } x _ { k } ^ { i } + y_j \geq 1 , \quad j \in J_2, \\
+	&- \sum _ { k \in K _ { i } } x _ { k } ^ { i } \geq - 1 , \quad \forall i \in I ,\\
+	&x _ { k } ^ { i } \geq 0 , \quad \forall k \in K _ { i } , i \in I .	
+	\end{align*}
 	
 	
 \end{document}

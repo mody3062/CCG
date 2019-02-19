@@ -121,8 +121,22 @@
 	\text { s.t. }&  ~ \sum _ { i \in I } \sum _ { k \in K _ { i } } \delta _ { k } ^ { j } x _ { k } ^ { i } \geq 1 , \quad j \in J_1, \\
 	& \sum _ { i \in I } \sum _ { k \in K _ { i } } \delta _ { k } ^ { j } x _ { k } ^ { i } + y_j \geq 1 , \quad j \in J_2, \\
 	&- \sum _ { k \in K _ { i } } x _ { k } ^ { i } \geq - 1 , \quad \forall i \in I ,\\
-	&x _ { k } ^ { i } \geq 0 , \quad \forall k \in K _ { i } , i \in I .	
+	&x _ { k } ^ { i } \geq 0 , \quad \forall k \in K _ { i } , i \in I, \\
+	&y_j \geq 0, \quad \forall j \in J.
 	\end{align*}
+	
+	
+	\paragraph{Stabilization}
+\begin{align*}
+	(\tilde{P})~ \min& ~ \sum _ { i \in I } \sum _ { k \in K } c _ { k } ^ { i } x _ { k } ^ { i } + \sum_{ j \in J_2 } \pi'_j y_j + \sum_{ j \in J }\delta_j (\gamma_j^+ - \gamma_j^-) + \sum_{i \in I}\phi_i(y_i^+ - y_i^-),\\
+\text { s.t. }&  ~ \sum _ { i \in I } \sum _ { k \in K _ { i } } \delta _ { k } ^ { j } x _ { k } ^ { i } + \gamma_j^+ - \gamma_j^- \geq 1 , \quad j \in J_1, \\
+& \sum _ { i \in I } \sum _ { k \in K _ { i } } \delta _ { k } ^ { j } x _ { k } ^ { i } + y_j + \gamma_j^+ - \gamma_j^-\geq 1 , \quad j \in J_2, \\
+&- \sum _ { k \in K _ { i } } x _ { k } ^ { i } +y_i^+ - y_i^-\geq - 1 , \quad \forall i \in I ,\\
+	& \gamma_j^+ \leq \epsilon , ~ \gamma_j^- \leq \epsilon,\quad \forall j \in J,  \\
+& y_i^+ \leq \epsilon, ~ y_i^-  \leq \epsilon, \quad \forall i \in I, \\
+&x _ { k } ^ { i } \geq 0 , \quad \forall k \in K _ { i } , i \in I,\\
+&y_j \geq 0, \quad \forall j \in J.
+\end{align*}	
 	
 	
 \end{document}

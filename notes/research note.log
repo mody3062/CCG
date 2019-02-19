@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.9)  14 FEB 2019 17:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.9)  19 FEB 2019 17:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -621,41 +621,41 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2] [3] (./research note.aux) ) 
+[2] [3] [4] (./research note.aux) ) 
 Here is how much of TeX's memory you used:
  2612 strings out of 492995
  32027 string characters out of 6132704
- 103837 words of memory out of 5000000
+ 105837 words of memory out of 5000000
  6120 multiletter control sequences out of 15000+600000
  15254 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,11n,43p,458b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
-12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/
-msam10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanumtype1/na
-nummjmad.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanumtype1/
-nanummjmae.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanumtype
-1/nanummjmb1.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanumty
-pe1/nanummjmb9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanum
-type1/nanummjmc5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nan
-umtype1/nanummjmc6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/n
-anumtype1/nanummjmd2.pfb>
-Output written on "research note.pdf" (3 pages, 380608 bytes).
+ 37i,12n,43p,458b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmtt12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symb
+ols/msam10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanumtype
+1/nanummjmad.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanumty
+pe1/nanummjmae.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nanum
+type1/nanummjmb1.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/nan
+umtype1/nanummjmb9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/n
+anumtype1/nanummjmc5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
+/nanumtype1/nanummjmc6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
+ic/nanumtype1/nanummjmd2.pfb>
+Output written on "research note.pdf" (4 pages, 381874 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 101 PDF objects out of 1000 (max. 8388607)
+ 73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

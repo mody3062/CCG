@@ -1,0 +1,11 @@
+,method,iteration,total,M_per,method,iteration,total,M_per
+d05100,Kelly+Sep,2296,44.57,61%,Stab+Sep.,2321,49.80,66%
+d10100,Kelly+Sep,949,6.38,32%,Stab+Sep.,858,7.25,40%
+d10200,Kelly+Sep,3253,132.49,67%,Stab+Sep.,3703,193.21,73%
+d20100,Kelly+Sep,673,3.24,29%,Stab+Sep.,629,4.15,41%
+d20200,Kelly+Sep,1862,32.86,51%,Stab+Sep.,2288,52.38,59%
+e05100,Kelly+Sep,3487,74.37,86%,Stab+Sep.,2761,37.61,76%
+e10100,Kelly+Sep,1160,6.64,54%,Stab+Sep.,1261,8.93,58%
+e10200,Kelly+Sep,4328,186.97,87%,Stab+Sep.,4455,218.22,88%
+e20100,Kelly+Sep,711,2.81,36%,Stab+Sep.,644,3.50,46%
+e20200,Kelly+Sep,2390,44.17,75%,Stab+Sep.,2713,61.78,78%

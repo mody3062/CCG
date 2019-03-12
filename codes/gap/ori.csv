@@ -1,0 +1,11 @@
+,method,iteration,total(s),M(%),method,iteration,total(s),M(%),method,iteration,total(s),M(%),method,iteration,total(s),M(%)
+d05100,Kelly,2485,26.13,25%,Stab.,2216,33.27,32%,Kelly+Sep,2296,44.57,61%,Stab+Sep.,2321,49.8,66%
+d10100,Kelly,1223,7.83,25%,Stab.,1068,11.49,42%,Kelly+Sep,949,6.38,32%,Stab+Sep.,858,7.25,40%
+d10200,Kelly,4485,133.04,54%,Stab.,4423,199.37,61%,Kelly+Sep,3253,132.49,67%,Stab+Sep.,3703,193.21,73%
+d20100,Kelly,852,3.67,26%,Stab.,782,6.63,49%,Kelly+Sep,673,3.24,29%,Stab+Sep.,629,4.15,41%
+d20200,Kelly,2513,38.59,41%,Stab.,2549,65.75,55%,Kelly+Sep,1862,32.86,51%,Stab+Sep.,2288,52.38,59%
+e05100,Kelly,2577,15.03,42%,Stab.,2356,27.73,51%,Kelly+Sep,3487,74.37,86%,Stab+Sep.,2761,37.61,76%
+e10100,Kelly,1345,6.83,36%,Stab.,1405,12.45,52%,Kelly+Sep,1160,6.64,54%,Stab+Sep.,1261,8.93,58%
+e10200,Kelly,6273,153.91,77%,Stab.,6580,271.2,80%,Kelly+Sep,4328,186.97,87%,Stab+Sep.,4455,218.22,88%
+e20100,Kelly,942,3.13,32%,Stab.,979,7.4,52%,Kelly+Sep,711,2.81,36%,Stab+Sep.,644,3.5,46%
+e20200,Kelly,3273,37.77,57%,Stab.,3374,76.73,69%,Kelly+Sep,2390,44.17,75%,Stab+Sep.,2713,61.78,78%

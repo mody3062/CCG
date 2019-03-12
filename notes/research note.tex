@@ -5,14 +5,58 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-
+\usepackage{algorithm,algpseudocode}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[affil-it]{authblk}
+\usepackage{setspace}
+\usepackage{bm}
+\usepackage[round]{natbib}
+\usepackage{booktabs,multirow}
+\usepackage{titlesec}
+\usepackage{algorithm,algpseudocode}
+\usepackage[subrefformat=parens]{subfig}
+%\usepackage{subcaption}
+\usepackage{csvsimple}
+\usepackage{siunitx}
+\usepackage[figuresright]{rotating}
+\usepackage{tikz,pgfplots}
+\pgfplotsset{compat=newest}
+%\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{tabularx} 
+\usepackage{siunitx}
+\usepackage{etoolbox}
 
 \newcommand{\diff}{\mathop{}\!d}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\usetikzlibrary{arrows,calc,decorations.pathreplacing,shapes.geometric,topaths,shapes.misc,shapes.multipart,patterns}
+\usepackage{algorithm,algpseudocode}% http://ctan.org/pkg/{algorithms,algorithmx}
+
+\algnewcommand{\Set}[1]{%
+	\State \textbf{Set:}
+	\Statex \hspace*{\algorithmicindent}\parbox[t]{.8\linewidth}{\raggedright #1}
+}
+\algnewcommand{\Initialize}[1]{%
+	\State \textbf{Initialize:}
+	\Statex \hspace*{\algorithmicindent}\parbox[t]{.8\linewidth}{\raggedright #1}
+}
+
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{statistics}
+\algnewcommand{\algorithmicgoto}{\textbf{go to}}%
+\algnewcommand{\Goto}[1]{\algorithmicgoto~\ref{#1}}%
 
 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\usepackage{graphicx}
+\usepackage{lscape}
 \usepackage{kotex}
 \usepackage{romannum}
 \newtheorem{thm}{Theorem}
@@ -93,21 +137,6 @@
 	&y_i^+\geq 0 , \quad \forall k \in K _ { i } , i \in I.
 	\end{align*}
 	
-	\section{Preliminary Tests}
-	Github page : \texttt{https://github.com/mody3062/CG}
-	\paragraph{Testing algorithms}
-	\begin{itemize}
-		\item Classical column generation (Kelly's cutting plane)
-		\item Stabilized column generation (O. Du Merle, et. al., 1997)
-	\end{itemize}
-	All codes for the both of algorithms are based on the pseudo code described in Figure 1 of (O. Du Merle, et. al., 1997). 
-	
-	
-	\paragraph{Algorithmic parameters}
-	
-	RMP was constructed with a single decision variable which is dummy. The coefficient of the dummy variable on the objective function was set to a sufficiently large value, which is the sum of listed values such that \verb|np.sum(c,axis=1)|. For stabilized column generation algorithm, I fixed the parameter $\epsilon$ to 0.0001. ($\because$ I don't understand the criteria for changing the parameter value($\epsilon$). )
-	
-	
 	\section{New Column Generation Approach}
 	Consider $J = J_1 \cup J_2$ and the dual solutions $\pi_j$ for all $j \in J_2$ are fixed to $\Pi' = \bigcup_{j \in J_2} \pi'_j$ ($\pi'$ is a feasible solution). Then, the reformulation of the dual problem and its primal are as follows : 
 	
@@ -139,4 +168,121 @@
 \end{align*}	
 	
 	
+		\begin{algorithm}
+		\caption{Column generation for GAP} \label{alg:cg}
+		\begin{algorithmic}[1]
+			\State tolerance $\leftarrow$ 0.000001
+			\State $\Pi_2$ $\leftarrow$ \textbf{0}
+			\State iteration $\leftarrow$ 0
+			\State criteria $\leftarrow$ True 
+			\While{any(criteria)}
+			\State iteration += 1
+			\If{iteration \% 2 == 0}
+				\State Solve M1 with fixed $\Pi_1$
+				\State $\Pi_2 \leftarrow$ optimal dual solution
+				\State Solve S
+					\If{Reduced cost $<$ tolerance}
+					\State Add the column to M1 ad M2
+						\qquad \qquad \qquad \rlap{\smash{$\left.\begin{array}{@{}c@{}}\\{}\\{}\\{}\\{}\\{}\\{}\\{}\end{array}\color{red}\right\}%
+							\color{red}\begin{tabular}{l}$\Pi_1$ is fixed. \end{tabular}$}}
+					\Else 
+					\State criteria $\leftarrow$ False
+					\EndIf
+			\Else
+				\State Solve M2 with fixed $\Pi_2$
+				\State $\Pi_1 \leftarrow$ optimal dual solution
+				\State Solve S
+					\If{Reduced cost $<$ tolerance}
+					\State Add the column to M1 ad M2
+					\qquad \qquad \qquad \rlap{\smash{$\left.\begin{array}{@{}c@{}}\\{}\\{}\\{}\\{}\\{}\\{}\\{}\end{array}\color{red}\right\}%
+					\color{red}\begin{tabular}{l}$\Pi_2$ is fixed. \end{tabular}$}}
+					\Else 
+					\State criteria $\leftarrow$ False
+					\EndIf
+			\EndIf
+			\EndWhile
+		\end{algorithmic}
+	\end{algorithm}
+
+	
+\section{Preliminary Tests}
+Github page : \texttt{https://github.com/mody3062/CG}
+\paragraph{Testing algorithms}
+\begin{itemize}
+	\item Classical column generation (Kelly's cutting plane)
+	\item Stabilized column generation (O. Du Merle, et. al., 1997)
+	\item Separation + Classical column generation
+	\item Separation + Stabilized column generation
+\end{itemize}
+
+
+\paragraph{Algorithmic parameters}
+
+RMP was constructed with a single decision variable which is dummy. The coefficient of the dummy variable on the objective function was set to a sufficiently large value, which is the sum of listed values such that \verb|np.sum(c,axis=1)|. For stabilized column generation algorithm, I changed the parameter $\epsilon$ from 0.01 to 0.0001 for every 100 trials. (I am not sure whether I could understand the criteria for changing the parameter value($\epsilon$) well.)
+
+
+\begin{landscape}
+	\begin{table}[]
+		\resizebox{1.3\textwidth}{!}{%
+			\begin{tabular}{lllllllllllllllll}
+				\hline 
+				&  & \multicolumn{3}{c}{Kelly} &  & \multicolumn{3}{c}{Stab.} &  & \multicolumn{3}{c}{Sep.} &  & \multicolumn{3}{c}{Sep.+Stab.} \\ \cline{3-5} \cline{7-9} \cline{11-13} \cline{15-17} 
+				&  & iteration & total(s) & M(\%) &  & iteration & total(s) & M(\%) &  & iteration & total(s) & M(\%) &  & iteration & total(s) & M(\%) \\			\hline \\[-3mm]
+				d05100 &  & 2485 & 26.13 & 25\% &  & 2216 & 33.27 & 32\% &  & 2296 & 44.57 & 61\% &  & 2321 & 49.8 & 66\% \\
+				d10100 &  & 1223 & 7.83 & 25\% &  & 1068 & 11.49 & 42\% &  & 949 & 6.38 & 32\% &  & 858 & 7.25 & 40\% \\
+				d10200 &  & 4485 & 133.04 & 54\% &  & 4423 & 199.37 & 61\% &  & 3253 & 132.49 & 67\% &  & 3703 & 193.21 & 73\% \\
+				d20100 &  & 852 & 3.67 & 26\% &  & 782 & 6.63 & 49\% &  & 673 & 3.24 & 29\% &  & 629 & 4.15 & 41\% \\
+				d20200 &  & 2513 & 38.59 & 41\% &  & 2549 & 65.75 & 55\% &  & 1862 & 32.86 & 51\% &  & 2288 & 52.38 & 59\% \\
+				e05100 &  & 2577 & 15.03 & 42\% &  & 2356 & 27.73 & 51\% &  & 3487 & 74.37 & 86\% &  & 2761 & 37.61 & 76\% \\
+				e10100 &  & 1345 & 6.83 & 36\% &  & 1405 & 12.45 & 52\% &  & 1160 & 6.64 & 54\% &  & 1261 & 8.93 & 58\% \\
+				e10200 &  & 6273 & 153.91 & 77\% &  & 6580 & 271.2 & 80\% &  & 4328 & 186.97 & 87\% &  & 4455 & 218.22 & 88\% \\
+				e20100 &  & 942 & 3.13 & 32\% &  & 979 & 7.4 & 52\% &  & 711 & 2.81 & 36\% &  & 644 & 3.5 & 46\% \\
+				e20200 &  & 3273 & 37.77 & 57\% &  & 3374 & 76.73 & 69\% &  & 2390 & 44.17 & 75\% &  & 2713 & 61.78 & 78\%\\ \hline
+			\end{tabular}%
+		}
+	\end{table}
+\end{landscape}
+
+	\begin{align*}
+\text{(P)}~ \min ~& x^T Q x + c^Tx\\
+\text { s.t. }  ~ &Ax \geq b,\\
+& x \in  \mathbb{R}^n_{+}
+\end{align*}
+
+
+
+	\begin{align}
+	\text{(P)} \quad \min~ & \bm{d}^T \Omega \bm{d} - \lambda \bm{d}^T \bm{\alpha} \label{eq:P:obj}\\
+	\text{s.t. } 
+	& d_i = w_i - w_i^{bench}, \quad \forall i \in N, \label{eq:P:aw}\\
+	& w_i \ge 0, \quad \forall i \in N, \label{eq:P:nonn}\\
+	& \sum_{i \in N} w_i = 1, \label{eq:P:sum}\\
+	& \underline{\text{A}}_i \le d_i \le \overline{\text{A}}_i, \quad \forall i \in N, \label{eq:P:d}\\
+	& \underline{\text{SE}}_s \le \sum_{i \in N_s} d_i \le \overline{\text{SE}}_s, \quad \forall s \in S, \label{eq:P:sector}\\
+	& \underline{\text{MC}}_k \le \sum_{i \in N_k} d_i \le \overline{\text{MC}}_k, \quad \forall k \in K, \label{eq:P:MCAPQ}\\
+	& \underline{\text{B}} \le \sum_{i \in N} \beta_i d_i \le \overline{\text{B}}, \label{eq:P:beta}\\
+	& \underline{\text{K}} \le card(w_i \neq 0) \le \overline{\text{K}}, \label{eq:P:card}\\
+	& \underline{\text{AS}} \le 1 - \sum_{i \in N} \min\{w_i, w^{bench}_i \} \le \overline{\text{AS}}, \label{eq:P:AS}\\
+	& \underline{\text{TE}} \le \sqrt{\bm{d}^T \Omega \bm{d}} \le \overline{\text{TE}}, \label{eq:P:TE}
+	\end{align}
+	
+	\begin{pro} \label{pro:AS}
+		Constraint \eqref{eq:P:card} can be replaced by the following set of constraints:
+		\begin{align*}
+		&y_i \ge w_i - 0.001, \quad \forall i \in N, \\
+		&y_i \le w_i + 0.999, \quad \forall i \in N,\\
+		&\underline{\text{K}} \le \sum_{i \in N} y_i \le \overline{\text{K}}, \\
+		&y_i \in \{0,1\}, \quad \forall i \in N.
+		\end{align*}
+	\end{pro}
+
+\begin{pro}\label{pro:TE}
+	Constraint \eqref{eq:P:AS} can be replaced by the following set of constraints:
+	\begin{align*}
+	& \underline{\text{AS}} \le 1 -  \sum_{i \in N} v_i \le \overline{\text{AS}},\\
+	& w_i - z_i \le v_i \le w_i, \quad \forall i \in N,\\
+	& w^{bench}_i - 1 + z_i \le v_i \le w^{bench}_i, \quad \forall i \in N,\\
+	& z_i \in \{0,1\}, \quad \forall i \in N.
+	\end{align*}
+\end{pro}
 \end{document}

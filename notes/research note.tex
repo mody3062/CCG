@@ -32,7 +32,7 @@
 \usepackage{tabularx} 
 \usepackage{siunitx}
 \usepackage{etoolbox}
-
+\pagenumbering{arabic}
 \newcommand{\diff}{\mathop{}\!d}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \usetikzlibrary{arrows,calc,decorations.pathreplacing,shapes.geometric,topaths,shapes.misc,shapes.multipart,patterns}
@@ -58,7 +58,7 @@
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{kotex}
-\usepackage{romannum}
+%\usepackage{romannum}
 \newtheorem{thm}{Theorem}
 \newtheorem{cor}{Corollary}
 \newtheorem{exa}{Example}
@@ -76,10 +76,13 @@
 
 \begin{document}
 	\title{Column Generation Techniques for GAP}
+	\author{}
 	\date{\today}
 	\maketitle
 	
 	\section{Literature Review}
+	
+	\textbf{[ Column Generation Techniques ]}
 	\begin{itemize}
 		\item Branch-and-Price : Column Generation for Solving Huge Integer Programs (Barnhart, et. al., 1998)
 		\item A Branch-and-Price Algorithm for the Generalized Assignment Problem (Savelsbergh and Martin, 1997) 
@@ -108,6 +111,17 @@
 		\end{itemize}
 		\item Stabilized Column Generation (O. Du Merle, et. al., 1997)
 	\end{itemize}
+\vspace{5mm}
+\textbf{[ Alternating Direction Method of Multipliers (ADMM)]}
+\begin{itemize}
+	\item Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers (Boyd, et. al., 2010)
+	\item 통계적 기계학습에서의 ADMM 알고리즘의 활용 (최호식 외, 2017)
+\end{itemize}
+\begin{align*}
+\min _ { x } f ( x ) + g ( x ) \qquad
+&\Rightarrow \quad \min _ { x , z } f ( x ) + g ( z ) \quad \text{s.t.} ~ x = z \\
+&\Rightarrow \quad \text{(Lagrangina Function)} \quad L ( x , z , \alpha ) = f ( x ) + g ( z ) + \alpha ^ { T } ( x - z ) 
+\end{align*}
 
 	\section{Problems}
 	\subsection{A case study : Generalized Assignment Problem }
@@ -221,6 +235,19 @@ Github page : \texttt{https://github.com/mody3062/CG}
 RMP was constructed with a single decision variable which is dummy. The coefficient of the dummy variable on the objective function was set to a sufficiently large value, which is the sum of listed values such that \verb|np.sum(c,axis=1)|. For stabilized column generation algorithm, I changed the parameter $\epsilon$ from 0.01 to 0.0001 for every 100 trials. (I am not sure whether I could understand the criteria for changing the parameter value($\epsilon$) well.)
 
 
+ To start the column generation procedure, an initial re-
+stricted master problem has to be provided. This initial
+restricted master problem must have a feasible LP relax-
+ation to ensure that proper dual information is passed to
+the pricing problem. We have chosen to start with one
+column for each agent, corresponding to the optimal knap-
+sack solution, and a dummy column consisting of all ones
+with a large negative profit. The dummy column ensures
+that a feasible solution to the LP relaxation exists. This
+dummy column will be kept at all nodes of the branch-and-
+bound tree for the same reason.
+
+
 \begin{landscape}
 	\begin{table}[]
 		\resizebox{1.3\textwidth}{!}{%
@@ -243,46 +270,19 @@ RMP was constructed with a single decision variable which is dummy. The coeffici
 	\end{table}
 \end{landscape}
 
-	\begin{align*}
-\text{(P)}~ \min ~& x^T Q x + c^Tx\\
-\text { s.t. }  ~ &Ax \geq b,\\
-& x \in  \mathbb{R}^n_{+}
-\end{align*}
+
+\begin{figure}[] 
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{d}
+\caption{ Performance comparison of the algorithms (gap\_d)}
+	\end{center}
+\end{figure}
 
 
-
-	\begin{align}
-	\text{(P)} \quad \min~ & \bm{d}^T \Omega \bm{d} - \lambda \bm{d}^T \bm{\alpha} \label{eq:P:obj}\\
-	\text{s.t. } 
-	& d_i = w_i - w_i^{bench}, \quad \forall i \in N, \label{eq:P:aw}\\
-	& w_i \ge 0, \quad \forall i \in N, \label{eq:P:nonn}\\
-	& \sum_{i \in N} w_i = 1, \label{eq:P:sum}\\
-	& \underline{\text{A}}_i \le d_i \le \overline{\text{A}}_i, \quad \forall i \in N, \label{eq:P:d}\\
-	& \underline{\text{SE}}_s \le \sum_{i \in N_s} d_i \le \overline{\text{SE}}_s, \quad \forall s \in S, \label{eq:P:sector}\\
-	& \underline{\text{MC}}_k \le \sum_{i \in N_k} d_i \le \overline{\text{MC}}_k, \quad \forall k \in K, \label{eq:P:MCAPQ}\\
-	& \underline{\text{B}} \le \sum_{i \in N} \beta_i d_i \le \overline{\text{B}}, \label{eq:P:beta}\\
-	& \underline{\text{K}} \le card(w_i \neq 0) \le \overline{\text{K}}, \label{eq:P:card}\\
-	& \underline{\text{AS}} \le 1 - \sum_{i \in N} \min\{w_i, w^{bench}_i \} \le \overline{\text{AS}}, \label{eq:P:AS}\\
-	& \underline{\text{TE}} \le \sqrt{\bm{d}^T \Omega \bm{d}} \le \overline{\text{TE}}, \label{eq:P:TE}
-	\end{align}
-	
-	\begin{pro} \label{pro:AS}
-		Constraint \eqref{eq:P:card} can be replaced by the following set of constraints:
-		\begin{align*}
-		&y_i \ge w_i - 0.001, \quad \forall i \in N, \\
-		&y_i \le w_i + 0.999, \quad \forall i \in N,\\
-		&\underline{\text{K}} \le \sum_{i \in N} y_i \le \overline{\text{K}}, \\
-		&y_i \in \{0,1\}, \quad \forall i \in N.
-		\end{align*}
-	\end{pro}
-
-\begin{pro}\label{pro:TE}
-	Constraint \eqref{eq:P:AS} can be replaced by the following set of constraints:
-	\begin{align*}
-	& \underline{\text{AS}} \le 1 -  \sum_{i \in N} v_i \le \overline{\text{AS}},\\
-	& w_i - z_i \le v_i \le w_i, \quad \forall i \in N,\\
-	& w^{bench}_i - 1 + z_i \le v_i \le w^{bench}_i, \quad \forall i \in N,\\
-	& z_i \in \{0,1\}, \quad \forall i \in N.
-	\end{align*}
-\end{pro}
+\begin{figure}[] 
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{e}
+		\caption{ Performance comparison of the algorithms (gap\_e)}
+	\end{center}
+\end{figure}
 \end{document}
